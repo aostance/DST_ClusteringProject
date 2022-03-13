@@ -241,5 +241,8 @@ WH_adaptive.kmeans(mymat, k=3)
 
 
 
+library(tidyverse)
+# time series covid data
+coviddata <- read_csv("C:\\Users\\Andrea\\OneDrive\\Documents\\GitHub\\DST_ClusteringProject\\time_series_covid19_confirmed_global.csv")
 
 
