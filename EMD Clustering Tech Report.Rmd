@@ -4,6 +4,24 @@ author: "Andrea Stancescu and Lucy Liu"
 date: "3/16/2022"
 output: html_document
 ---
+# K-Means Clustering Investigation
+
+## Introduction
+
+Clustering is one of the important component of unsupervised machine learning. The primary object of this research was to comprehend the logic and implementation of K-Means algorithm, clustering histograms through dataset and image segmentation or clustering on time series data. The modeling on handwritten digits from built in datasets were tested and implemented on mnist training dataset. A final matrix of 25 random digits was printed.
+
+## DataSet
+
+Data was first tested on Based R built-in handwritten digits then model was implemented on mnist training dataset with 60,000 handwritten digits examples.
+
+Training Set source: http://yann.lecun.com/exdb/mnist/
+
+## Models and Techniques
+
+theretically explain what is EMD 
+math equations
+
+## Code and Result
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -37,7 +55,7 @@ image(barycenter)
 
 Below is the EMD clustering algorithm using Wasserstein distances on the MNIST training data set:
 ```{r}
-to.read = file("C:\\Users\\Andrea\\Downloads\\train-images.idx3-ubyte", 'rb')
+to.read = file("C:\\Users\\liulu\\Downloads\\train-images.idx3-ubyte", 'rb')
 
 # create lists of histogram distributions
 img_mnist = vector("list",25)
@@ -47,7 +65,7 @@ for (i in 1:25) {
   image(m[,28:1])
 }
 
-to.read = file("C:\\Users\\Andrea\\Downloads\\train-images.idx3-ubyte", 'rb')
+to.read = file("C:\\Users\\liulu\\Downloads\\train-images.idx3-ubyte", 'rb')
 readBin(to.read, integer(), n=4, endian="big")
 par(mfrow=c(5,5))
 par(mar=c(0,0,0,0))
@@ -58,6 +76,9 @@ mymat = new("MatH", nrows=25, ncols=1, ListOfDist=img_mnist, names.rows=c(1:25),
 WH_adaptive.kmeans(mymat, k=3)
 ```
 
+## Future Goal
+
+In real life, scientists cluster time series for different types of COVID time series data. On the other hand, image segmentation groups foreground and background by similarities. We were not able to implement image segmentation step nor EMD-clustering for time series data due to time constraints. Our future goal is using public COVID time series data we found online to find major grouping patterns and prototype trends based on predetermined conditions.
 
 
 
