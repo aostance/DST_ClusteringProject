@@ -9,22 +9,60 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Below are the packages that we will be using:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+library(Barycenter)
+library(Rcpp)
+library(HistDAWass)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Here is a sample of visualizing 5 different handwritten images of the number "8"
+```{r}
+image(eight[[1]])
+image(eight[[2]])
+image(eight[[3]])
+image(eight[[4]])
+image(eight[[5]])
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Now we will compute the barycenter of these images and visualize the barycenter
+using Barycenter::WaBarycenter() function
+```{r}
+barycenter <- WaBarycenter(eight)
+image(barycenter)
+```
+
+
+Below is the EMD clustering algorithm using Wasserstein distances on the MNIST training data set:
+```{r}
+to.read = file("C:\\Users\\Andrea\\Downloads\\train-images.idx3-ubyte", 'rb')
+
+# create lists of histogram distributions
+img_mnist = vector("list",25)
+for (i in 1:25) {
+  m = matrix(readBin(to.read,integer(), size=1, n=28*28, endian="big"),28,28)
+  img_mnist[[i]] = data2hist(m, type = "regular")
+  image(m[,28:1])
+}
+
+to.read = file("C:\\Users\\Andrea\\Downloads\\train-images.idx3-ubyte", 'rb')
+readBin(to.read, integer(), n=4, endian="big")
+par(mfrow=c(5,5))
+par(mar=c(0,0,0,0))
+for(i in 1:25){m = matrix(readBin(to.read,integer(), size=1, n=28*28, endian="big"),28,28);image(m[,28:1])}
+
+# combine separate lists into a matrix of histogram objects
+mymat = new("MatH", nrows=25, ncols=1, ListOfDist=img_mnist, names.rows=c(1:25), names.cols="density")
+WH_adaptive.kmeans(mymat, k=3)
+```
+
+
+
+
+
+
+
+
+
