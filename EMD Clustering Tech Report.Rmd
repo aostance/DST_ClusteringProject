@@ -1,11 +1,9 @@
 ---
-title: "EMD Clustering"
+title: "K-Means Clustering Investigation"
 author: "Andrea Stancescu and Lucy Liu"
 date: "3/16/2022"
 output: html_document
 ---
-# K-Means Clustering Investigation
-
 ## Introduction
 
 Clustering is one of the important component of unsupervised machine learning. The primary object of this research was to comprehend the logic and implementation of K-Means algorithm, clustering histograms through dataset and image segmentation or clustering on time series data. The modeling on handwritten digits from built in datasets were tested and implemented on mnist training dataset. A final matrix of 25 random digits was printed.
@@ -18,8 +16,14 @@ Training Set source: http://yann.lecun.com/exdb/mnist/
 
 ## Models and Techniques
 
-theretically explain what is EMD 
-math equations
+The wasserstein distance metric between probability distributions, also known as Earth Mover’s Distance (EMD), is a form of optimal transport distance representing the “minimal amount” of work to transport something. 
+
+Conceptually, EMD can be viewed as an analogy between transferring weights or boxes. One can view each probability distribution as a histogram where the height bar is associated with a big and a corresponding weight and coordinate in multidimensional vector space. Consequently, measuring the distance between grayscale images is equivalent to measuring the distance between two histogram heights where the cost of transforming one histogram into another is calculated via histogram weights and coordinates.  
+Transforming a first histogram into a second one involves moving weights from the “bins” of one histogram into the “bins” of the second. In order to minimize the total “distance traveled” or the total amount of weight transferred, an optimization problem must be defined whose discrete formulation leads to the transportation theory and Wasserstein distance formula. 
+
+As described above, this newly defined measure of distances is referred to as Earth Mover’s Distance in the field of image processing, Word Mover’s Distance (WMD) in the field of text processing, and Wasserstein Distance in the field of Optimization Theory. 
+
+The K-means clustering algorithm leverages the Wasserstein metrics by using a sparse discrete point set to cluster denser or continuous distributional data with respect to the Wasserstein distance between the original data and the sparse representation. This is equivalent to finding the Wasserstein barycenter of a single distribution.
 
 ## Code and Result
 
