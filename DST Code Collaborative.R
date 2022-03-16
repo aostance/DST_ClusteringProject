@@ -241,8 +241,28 @@ WH_adaptive.kmeans(mymat, k=3)
 
 
 
-library(tidyverse)
-# time series covid data
-coviddata <- read_csv("C:\\Users\\Andrea\\OneDrive\\Documents\\GitHub\\DST_ClusteringProject\\time_series_covid19_confirmed_global.csv")
 
+
+
+library(tidyverse)
+library(HistDAWass)
+# time series covid data
+coviddata <- read_csv("C:\\Users\\Andrea\\OneDrive\\Documents\\GitHub\\DST_ClusteringProject\\time_series_covid19_confirmed_global.csv", 'rb')
+# create lists of histogram distributions
+img_mnist = vector("list",25)
+for (i in 1:25) {
+  m = matrix(readBin(coviddata,integer(), size=1, n=28*28, endian="big"),28,28)
+  img_mnist[[i]] = data2hist(m, type = "regular")
+  image(m[,28:1])
+}
+
+
+readBin(coviddata, integer(), n=4, endian="big")
+par(mfrow=c(5,5))
+par(mar=c(0,0,0,0))
+for(i in 1:25){m = matrix(readBin(coviddata,integer(), size=1, n=28*28, endian="big"),28,28);image(m[,28:1])}
+
+# combine separate lists into a matrix of histogram objects
+mymat = new("MatH", nrows=25, ncols=1, ListOfDist=img_mnist, names.rows=c(1:25), names.cols="density")
+WH_adaptive.kmeans(mymat, k=3)
 
